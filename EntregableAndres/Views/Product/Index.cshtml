@@ -1,0 +1,51 @@
+﻿@model IEnumerable<EntregableAndres.Entity.Product>
+
+@{
+    ViewData["Title"] = "Listado de Productos";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    var errorMessage = TempData["ErrorMessage"] as string;
+}
+
+@if (!string.IsNullOrEmpty(errorMessage))
+{
+    <div class="alert alert-danger">
+        @errorMessage
+    </div>}
+<h2>@ViewData["Title"]</h2>
+
+<!-- Enlace para crear un nuevo producto -->
+<p>
+    <a href="@Url.Action("Create", "Product")" class="btn btn-primary">Nuevo Producto</a>
+</p>
+
+<!-- Tabla para mostrar los productos -->
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th>Id</th>
+            <th>Nombre</th>
+            <th>Acciones</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var product in Model)
+        {
+            <tr>
+                <td>@product.Id</td>
+                <td>@product.Name</td>
+                <td>
+                    <!-- Enlace para ver los detalles del producto -->
+                    <a href="@Url.Action("Details", "Product", new { id = product.Id })" class="btn btn-info">Detalles</a>
+
+                    <!-- Enlace para editar el producto -->
+                    <a href="@Url.Action("Edit", "Product", new { id = product.Id })" class="btn btn-warning">Editar</a>
+
+                    <!-- Formulario para eliminar el producto -->
+                    <form action="@Url.Action("Delete", "Product", new { id = product.Id })" method="post" style="display:inline;">
+                        <button type="submit" class="btn btn-danger" onclick="return confirm('¿Estás seguro de eliminar este producto?')">Eliminar</button>
+                    </form>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

@@ -1,0 +1,145 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>EntregableAndres</name>
+    </assembly>
+    <members>
+        <member name="M:EntregableAndres.Controllers.OrderController.Create">
+            <summary>
+            funcion para crear una orden
+            </summary>
+            
+            <returns>el producto que fue agregado a la vista si no se agrego si se agrego retorna al index.</returns>
+        </member>
+        <member name="M:EntregableAndres.Controllers.OrderController.Edit(System.Int32,EntregableAndres.Entity.Order)">
+            <summary>
+            Actualiza una orden existente.
+            </summary>
+            <remarks>
+            Este endpoint permite actualizar los detalles de una orden ya existente, incluyendo los productos y las cantidades.
+            Si la orden no existe, se retorna un código de estado 404 (Not Found).
+            </remarks>
+            <param name="id">El ID de la orden que se desea actualizar.</param>
+            <param name="order">El objeto de la orden con los nuevos detalles que se actualizarán.</param>
+            <returns>Un resultado de acción que indica si la operación fue exitosa o no.</returns>
+            <response code="204">Orden actualizada correctamente.</response>
+            <response code="400">La solicitud es inválida (por ejemplo, si el ID de la orden no coincide con el del objeto).</response>
+            <response code="404">La orden con el ID especificado no fue encontrada.</response>
+        </member>
+        <member name="M:EntregableAndres.Controllers.OrderItemController.Create">
+            <summary>
+            Muestra el formulario para crear un nuevo OrderItem (ítem de pedido).
+            </summary>
+            <remarks>
+            Este método se encarga de preparar la vista para la creación de un nuevo OrderItem. 
+            Recupera todos los productos disponibles desde el repositorio y los pasa a la vista 
+            para que el usuario pueda seleccionar uno al momento de crear un ítem de pedido.
+            </remarks>
+            <returns>La vista `Create` que muestra un formulario con los productos disponibles.</returns>
+            <response code="200">La vista fue renderizada correctamente, con la lista de productos disponibles.</response>
+        </member>
+        <member name="M:EntregableAndres.Controllers.OrderItemController.Create(EntregableAndres.Entity.OrderItem)">
+            <summary>
+            Crea un nuevo OrderItem (ítem de pedido).
+            </summary>
+            <remarks>
+            Este método recibe un objeto OrderItem en el cuerpo de la solicitud y lo agrega a la base de datos.
+            Si el modelo es válido, el ítem de pedido se guarda en el repositorio y el usuario es redirigido a la página de listado (Index).
+            En caso de que el modelo no sea válido, se retorna la vista para corregir los errores.
+            </remarks>
+            <param name="orderItem">El objeto OrderItem que se va a crear.</param>
+            <returns>Redirige al listado de OrderItems (Index) si el ítem se crea correctamente, o retorna la vista con el modelo si hay errores de validación.</returns>
+            <response code="200">Ítem de pedido creado exitosamente y redirigido al listado.</response>
+            <response code="400">El modelo enviado no es válido. Se retorna la vista para corrección.</response>
+        </member>
+        <member name="M:EntregableAndres.Controllers.OrderItemController.Edit(System.Int32,EntregableAndres.Entity.OrderItem)">
+            <summary>
+            Actualiza un OrderItem existente.
+            </summary>
+            <remarks>
+            Este método permite modificar un OrderItem en la base de datos. 
+            El cliente debe enviar un objeto `OrderItem` con los datos modificados, y el servidor intentará actualizar el ítem. 
+            Si el `OrderItem` con el ID especificado no existe o los datos no son válidos, se devuelve un error.
+            </remarks>
+            <param name="id">El ID del OrderItem a actualizar.</param>
+            <param name="orderItem">El objeto OrderItem con los nuevos datos a actualizar.</param>
+            <returns>Redirige a la vista de listado (Index) si la actualización es exitosa, o devuelve la vista con el modelo en caso de errores de validación.</returns>
+            <response code="200">OrderItem actualizado exitosamente y redirigido al listado.</response>
+            <response code="400">El modelo enviado no es válido. Se retorna la vista para corrección.</response>
+            <response code="404">El OrderItem con el ID especificado no se encuentra, o hubo un error de concurrencia al actualizar el ítem.</response>
+        </member>
+        <member name="M:EntregableAndres.Controllers.OrderItemController.DeleteConfirmed(System.Int32)">
+            <summary>
+            Elimina un OrderItem confirmado de la base de datos.
+            </summary>
+            <remarks>
+            Este método elimina un `OrderItem` de la base de datos de manera definitiva. Si el ítem está asociado a otros registros, se lanzará una excepción y el ítem no será eliminado.
+            Si ocurre un error durante el proceso de eliminación, se redirige al índice con un mensaje de error.
+            </remarks>
+            <param name="id">El ID del OrderItem que se va a eliminar.</param>
+            <returns>Redirige a la vista de listado (Index) tras la eliminación exitosa, o a la vista con un mensaje de error en caso de problemas.</returns>
+            <response code="200">OrderItem eliminado exitosamente y redirigido al listado.</response>
+            <response code="400">No se puede eliminar el OrderItem debido a problemas de asociación con otros registros.</response>
+            <response code="500">Hubo un error inesperado durante el proceso de eliminación.</response>
+        </member>
+        <member name="M:EntregableAndres.Controllers.ProductController.Index">
+            <summary>
+            Obtiene todos los productos para asignarlos a la vista
+            </summary>
+            
+            <returns>El productos encontrados.</returns>
+        </member>
+        <member name="M:EntregableAndres.Controllers.ProductController.Create(EntregableAndres.Entity.Product)">
+             <summary>
+            funcion para crear un producto
+             </summary>
+             
+             <returns>el producto que fue agregado a la vista si no se agrego si se agrego retorna al index.</returns>
+        </member>
+        <member name="M:EntregableAndres.Controllers.ProductController.Edit(System.Int32)">
+            <summary>
+            Recupera un producto por su ID y devuelve la vista correspondiente.
+            </summary>
+            <remarks>
+            Este endpoint permite obtener los detalles de un producto específico, dado su identificador.
+            Si no se encuentra el producto, retorna un código de estado 404 (Not Found).
+            </remarks>
+            <param name="id">El ID del producto que se desea recuperar.</param>
+            <returns>La vista con los detalles del producto o un error si no se encuentra.</returns>
+            <response code="200">Producto encontrado y mostrado en la vista.</response>
+            <response code="404">El producto con el ID especificado no fue encontrado.</response>
+        </member>
+        <member name="M:EntregableAndres.Controllers.ProductController.Details(System.Int32)">
+            <summary>
+            Actualiza un producto existente en el sistema.
+            </summary>
+            <remarks>
+            Este endpoint permite actualizar un producto en el sistema. Se debe enviar el ID del producto en la URL y 
+            los nuevos datos del producto en el cuerpo de la solicitud. Si el ID no coincide con el producto enviado, 
+            se retornará un error 404 (Not Found). Si el producto es actualizado correctamente, se redirige a la vista `Index`.
+            </remarks>
+            <param name="id">El ID del producto que se desea actualizar.</param>
+            <param name="product">El objeto del producto con los nuevos datos.</param>
+            <returns>Redirige a la vista `Index` si la actualización fue exitosa, o devuelve la vista con los datos del producto si ocurre un error.</returns>
+            <response code="200">Producto actualizado exitosamente y redirigido a `Index`.</response>
+            <response code="400">La solicitud no es válida o el modelo está incorrecto.</response>
+            <response code="404">El producto con el ID especificado no fue encontrado.</response>
+        </member>
+        <member name="M:EntregableAndres.Controllers.ProductController.DeleteConfirmed(System.Int32)">
+            <summary>
+            Elimina un producto confirmado del sistema.
+            </summary>
+            <remarks>
+            Este endpoint maneja la eliminación de un producto. Si el producto está asociado a otros registros en la base de datos, 
+            puede generar una excepción de tipo DbUpdateException. En este caso, se muestra un mensaje de error y no se elimina el producto.
+            Si ocurre cualquier otro error durante el proceso de eliminación, se captura y muestra un mensaje genérico.
+            Si la eliminación es exitosa, se redirige al índice de productos.
+            </remarks>
+            <param name="id">El ID del producto a eliminar.</param>
+            <returns>Redirige a la vista `Index` si la eliminación es exitosa, o muestra un mensaje de error si ocurre un problema.</returns>
+            <response code="200">El producto fue eliminado exitosamente.</response>
+            <response code="400">Hubo un error al intentar eliminar el producto debido a asociaciones en la base de datos.</response>
+            <response code="500">Ocurrió un error inesperado al intentar eliminar el producto.</response>
+        </member>
+    </members>
+</doc>

@@ -7,4 +7,16 @@ COMO ESTA, SI LO VAN A CORRER EN LOCAL ENTONCES NO MODIFICAR
 
 Es importante tambien ver la documentacion Solucion_BACKEND-PRUEBA TECNICA_Lintic ahi estan 
 los pasos para crear la imagen de docker en el punto DOCKERIZACION
+sin embargo se comparte los comandos para generar la imagen
+es importante descargar Docker
+https://www.docker.com/products/docker-desktop/
+Primer paso
+docker build -t entregableandres:v1.0.1 .
+segundo paso
+
+docker run -p 80:5001 -e ASPNETCORE_URLS="http://+:5001" entregableandres:v1.0.1
+
+tercer paso si es opcional
+docker save -o entregableandres_v1.0.1.tar entregableandres:v1.0.1
+
 

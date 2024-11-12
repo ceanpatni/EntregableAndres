@@ -1,0 +1,51 @@
+﻿@model EntregableAndres.Entity.OrderItem
+
+@{
+    ViewData["Title"] = "Create Order Item";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    // Verifica si ViewData["Products"] es null
+    var products = ViewData["Products"] as IEnumerable<EntregableAndres.Entity.Product>;
+
+    if (products == null)
+    {
+<div class="alert alert-danger">
+    No se pudieron cargar los productos. Intenta de nuevo más tarde.
+</div> }
+}
+
+<div class="container mt-4">
+    <h1>@ViewData["Title"]</h1>
+
+    <form asp-action="Create" method="post">
+        <div class="form-group">
+            <label for="OrderId">Order ID</label>
+            <input type="number" class="form-control" id="OrderId" name="OrderId" required />
+        </div>
+
+        <div class="form-group">
+            <label for="ProductId">Product</label>
+            <select class="form-control" id="ProductId" name="ProductId" required>
+                @if (products != null)
+                {
+                    @foreach (var product in products)
+                    {
+                        <option value="@product.Id">@product.Name</option>
+                    }
+                }
+                </select>
+        </div>
+
+        <div class="form-group">
+            <label for="Quantity">Quantity</label>
+            <input type="number" class="form-control" id="Quantity" name="Quantity" required />
+        </div>
+
+        <div class="form-group">
+            <label for="UnitPrice">Unit Price</label>
+            <input type="number" class="form-control" id="UnitPrice" name="UnitPrice" step="0.01" required />
+        </div>
+
+        <button type="submit" class="btn btn-primary">Save</button>
+        <a href="@Url.Action("Index", "OrderItem")" class="btn btn-secondary">Back</a>
+    </form>
+</div>

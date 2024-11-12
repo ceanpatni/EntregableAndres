@@ -1,0 +1,20 @@
+﻿@model EntregableAndres.Entity.Order
+
+@{
+    ViewData["Title"] = "Delete Order";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h1>Delete Order</h1>
+
+<h3>Are you sure you want to delete this order?</h3>
+<div>
+    <h4>Order Date: @Model.OrderDate</h4>
+    <p>Total Amount: @Model.TotalAmount</p>
+    <p>Customer ID: @Model.CustomerId</p>
+</div>
+
+<form asp-action="Delete"  method="post" class="mt-4">
+    <button type="submit" class="btn btn-danger">Delete</button>
+    <a href="@Url.Action("Index", "Order")" class="btn btn-secondary">Cancel</a>
+</form>

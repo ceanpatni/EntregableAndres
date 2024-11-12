@@ -1,0 +1,24 @@
+﻿@model EntregableAndres.Entity.Product
+
+@{
+    ViewData["Title"] = "Product Details";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="container mt-4">
+    <h2>Product Details</h2>
+    <div class="mb-3">
+        <strong>Name:</strong> @Model.Name
+    </div>
+    <div class="mb-3">
+        <strong>Price:</strong> @Model.Price
+    </div>
+    <div class="mb-3">
+        <strong>Quantity:</strong> @Model.Quantity
+    </div>
+    <div class="mb-3">
+        <strong>Description:</strong> @Model.Description
+    </div>
+    <a href="@Url.Action("Edit", "Product", new { id = Model.Id })" class="btn btn-warning">Edit</a>
+    <a href="@Url.Action("Index", "Product")" class="btn btn-secondary">Back to List</a>
+</div>
